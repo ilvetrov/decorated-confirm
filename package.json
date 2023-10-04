@@ -1,6 +1,6 @@
 {
   "name": "decorated-confirm",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "DecoratedConfirm are React components to confirm or reject events from your elements",
   "author": "ilvetrov",
   "license": "Apache-2.0",
