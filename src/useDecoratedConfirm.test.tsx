@@ -70,4 +70,34 @@ describe('Outer component', () => {
 
     expect(isClicked).toBeTruthy()
   })
+
+  it('supports ignore', async () => {
+    let isClicked = false
+
+    const Component = () => {
+      const ref = useRef<HTMLButtonElement>(null)
+
+      useDecoratedEvent(ref, ['click'], true)
+
+      return (
+        <main>
+          <button ref={ref} type="button" onClick={() => (isClicked = true)}>
+            Origin event button
+          </button>
+        </main>
+      )
+    }
+
+    render(<Component></Component>)
+
+    const button = screen.getByText('Origin event button')
+
+    fireEvent.click(button)
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 200)
+    })
+
+    expect(isClicked).toBeTruthy()
+  })
 })

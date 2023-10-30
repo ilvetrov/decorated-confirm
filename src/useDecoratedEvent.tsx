@@ -12,6 +12,7 @@ import { isRestoredEvent, restoreEvent } from './libs/restoreEvent'
 export function useDecoratedEvent(
   ref: MutableRefObject<HTMLElement | null>,
   events: (keyof NonCaptureOriginalEvents)[],
+  ignore?: boolean,
   deps?: DependencyList,
 ): {
   confirm(): void
@@ -22,6 +23,8 @@ export function useDecoratedEvent(
   const [isPending, setIsPending] = useState(false)
 
   useEffect(() => {
+    if (ignore) return undefined
+
     if (!ref.current) {
       // eslint-disable-next-line no-console
       console.error('ref.current is empty')
@@ -54,7 +57,7 @@ export function useDecoratedEvent(
     )
 
     return () => abortController.abort()
-  }, deps ?? [])
+  }, [ignore, ...(deps ?? [])])
 
   return {
     isPending,
