@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import React, { useRef } from 'react'
-import useDecoratedEvent from './useDecoratedEvent'
+import { useDecoratedEvent } from './useDecoratedEvent'
 
 describe('Outer component', () => {
   it('cancels event', async () => {
