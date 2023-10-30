@@ -1,8 +1,7 @@
 import React, { SyntheticEvent, useRef, ReactNode, useMemo } from 'react'
 import { CaptureEvents } from './libs/events'
 import mapObject from './libs/mapObject'
-
-const canIngoreStop = new WeakMap()
+import { isRestoredEvent, restoreEvent } from './libs/restoreEvent'
 
 export function DecoratedConfirm({
   children,
@@ -19,7 +18,7 @@ export function DecoratedConfirm({
       mapObject(events, (handler) => async (event: SyntheticEvent) => {
         if (
           !handler ||
-          canIngoreStop.has(event.nativeEvent) ||
+          isRestoredEvent(event.nativeEvent) ||
           event.target === wrapElement.current
         )
           return
@@ -43,11 +42,7 @@ export function DecoratedConfirm({
           const result = await canDoAction
 
           if (result) {
-            const validatedEvent = new Event(event.type, { bubbles: true })
-
-            canIngoreStop.set(validatedEvent, true)
-
-            event.target.dispatchEvent(validatedEvent)
+            restoreEvent(event)
           }
         }
       }),

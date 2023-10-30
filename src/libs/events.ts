@@ -8,6 +8,8 @@ export type CaptureEvents = {
     : never]: ConfirmFunction<Key>
 }
 
+export type NonCaptureOriginalEvents = HTMLElementEventMap
+
 export type ConfirmFunction<Key extends keyof Attrs> = (
   ...params: Parameters<Attrs[Key]>
 ) => boolean | Promise<boolean>
