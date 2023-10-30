@@ -9,7 +9,7 @@ import {
 import { NonCaptureOriginalEvents } from './libs/events'
 import { isRestoredEvent, restoreEvent } from './libs/restoreEvent'
 
-export default function useDecoratedEvent(
+export function useDecoratedEvent(
   ref: MutableRefObject<HTMLElement | null>,
   events: (keyof NonCaptureOriginalEvents)[],
   deps?: DependencyList,
